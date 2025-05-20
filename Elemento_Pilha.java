@@ -12,7 +12,11 @@ public class Elemento_Pilha{
         return prox;
     }
 
-    public setProx(Elemento_Pilha proxElemento){
+    public void setProx(Elemento_Pilha proxElemento){
         this.prox = proxElemento;
+    }
+    
+    public Object getItem(){
+        return item;
     }
 }

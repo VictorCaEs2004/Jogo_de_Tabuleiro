@@ -7,7 +7,7 @@ public class Estr_Pilha{
     }
 
     public void Inserir(Elemento_Pilha elmntAInserir){
-        elmntAInserir.getProx() = topo;
+        elmntAInserir.setProx(topo);
         topo = elmntAInserir;
     }
 
