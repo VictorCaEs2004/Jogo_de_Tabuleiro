@@ -33,8 +33,9 @@ public class Estr_Pilha{
         if(!this.EstaVazio()){
             tamanho++;
             Elemento_Pilha elementoContado = topo;
-            while(topo.getProx() != null){
+            while(elementoContado.getProx() != null){
                 tamanho++;
+                elementoContado = elementoContado.getProx();
             }
         }
         return tamanho;
