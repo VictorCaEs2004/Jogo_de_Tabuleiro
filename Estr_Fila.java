@@ -1,6 +1,8 @@
+
 public class Estr_Fila {
 
-    private Elemento_Fila inicio, fim;
+    private Elemento_Fila inicio, fim, prox;
+    Elemento_Fila elemento;
 
     public Estr_Fila(){
         this.inicio = this.fim = null;
@@ -13,7 +15,7 @@ public class Estr_Fila {
         -Efeito: o Elemento_Fila é inserido ao final da fila
     */
     public void InserirSimples(Elemento_Fila itemASerInserido){
-        fim.prox = itemASerInserido;
+        fim = fim.getProx();
         fim = itemASerInserido;
     }
 
@@ -25,7 +27,7 @@ public class Estr_Fila {
     */
     public Elemento_Fila Pop(){
         Elemento_Fila saindo = inicio;
-        inicio = inicio.prox;
+        inicio = inicio.getProx();
         return saindo;
     }
 
@@ -56,10 +58,17 @@ public class Estr_Fila {
         -Efeito: nenhum
     */
     public boolean EstaVazio(){
-        if(this.inicio == null){
-            return true;
+            return this.inicio == null;
         }
-        return false;
+
+    public Elemento_Fila getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(Elemento_Fila elemento) {
+        this.elemento = elemento;
+    }
+
     }
 
     /*
@@ -68,16 +77,21 @@ public class Estr_Fila {
         -Saída: int correspondente ao número de Elemento_Fila na fila
         -Efeito: nenhum
     */
+    
     public int Tamanho(){
         int tamanho = 0;
+
         if(!this.EstaVazio()){
             Elemento_Fila elemento = inicio;
+
             while(elemento.prox != null){
                 tamanho++;
-                elemento = elemento.prox;
+                elemento = elemento.getProx();
             }
         }
 
         return tamanho;
     }
+
+    
 }

@@ -6,6 +6,10 @@ public class Estr_Pilha{
         this.topo = null;
     }
 
+    public Estr_Pilha(Elemento_Pilha topo) {
+        this.topo = topo;
+    }
+
     public void Inserir(Elemento_Pilha elmntAInserir){
         elmntAInserir.setProx(topo);
         topo = elmntAInserir;
@@ -22,10 +26,7 @@ public class Estr_Pilha{
     }
 
     public boolean EstaVazio(){
-        if(topo == null){
-            return true;
-        }
-        return false;
+        return topo == null;
     }
 
     public int Tamanho(){

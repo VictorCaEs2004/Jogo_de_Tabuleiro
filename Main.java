@@ -17,4 +17,5 @@ public class Main {
         Random r = new Random();
         return 1 + r.nextInt(6);
     }
+    
 }
