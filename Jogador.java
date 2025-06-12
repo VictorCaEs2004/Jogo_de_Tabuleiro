@@ -1,6 +1,6 @@
-public class Jogador{
+public class Jogador {
     public String nome;
-    public String numero_de_jogadores;
+    public String numeroJogadores;
     public boolean prioridade;
 
     public String getNome() {
@@ -11,12 +11,12 @@ public class Jogador{
         this.nome = nome;
     }
 
-    public String getNumero_de_jogadores() {
-        return numero_de_jogadores;
+    public String getNumeroJogadores() {
+        return numeroJogadores;
     }
 
-    public void setNumero_de_jogadores(String numero_de_jogadores) {
-        this.numero_de_jogadores = numero_de_jogadores;
+    public void setNumeroJogadores(String numeroJogadores) {
+        this.numeroJogadores = numeroJogadores;
     }
 
     public boolean isPrioridade() {
@@ -26,8 +26,4 @@ public class Jogador{
     public void setPrioridade(boolean prioridade) {
         this.prioridade = prioridade;
     }
-
-    
-
-    
 }

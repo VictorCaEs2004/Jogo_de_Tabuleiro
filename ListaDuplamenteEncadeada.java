@@ -5,13 +5,25 @@ public class ListaDuplamenteEncadeada {
         this.primeiro = this.ultimo = this.atual = null;
     }
 
-    public boolean estaVazia() {
+    /*
+     * EstaVazio/IsEmpty
+     * -Entrada: nenhuma
+     * -Saída: boolean
+     * -Efeito: retorna se a lista dupla está vazia ou não
+     */
+    public boolean estaVazio() {
         return primeiro == null;
     }
 
+    /*
+     * InserirUltimo/InsertAtEnd
+     * -Entrada: o dado do nó a ser inserido
+     * -Saída: nenhuma
+     * -Efeito: insere nó ao fim da lista dupla
+     */
     public void inserirUltimo(int info) {
         Node node = new Node(info);
-        if (estaVazia()) {
+        if (estaVazio()) {
             primeiro = ultimo = node;
         } else {
             ultimo.prox = node;
@@ -20,6 +32,12 @@ public class ListaDuplamenteEncadeada {
         }
     }
 
+    /*
+     * Avancar/TraverseForward
+     * -Entrada: posição do nó atual e do nó destino
+     * -Saída: nenhuma
+     * -Efeito: se movimenta da posição atual até destino
+     */
     public void avancar(int posicao, int valor) {
         atual = primeiro;
         if (posicao != 1) {
@@ -35,6 +53,12 @@ public class ListaDuplamenteEncadeada {
         System.out.println("Moveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
     }
 
+    /*
+     * Retroceder/TraverseBackward
+     * -Entrada: posição do nó atual e do nó destino
+     * -Saída: nenhuma
+     * -Efeito: se movimenta da posição atual até destino
+     */
     public void retroceder(int posicao, int valor) {
         atual = primeiro;
         if (posicao != 1) {
@@ -48,11 +72,5 @@ public class ListaDuplamenteEncadeada {
             atual = atual.prev;
         }
         System.out.println("Moveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
-    }
-
-    public void mostrarLista() {
-        for (Node node = primeiro; node != null; node = node.prox) {
-            System.out.println(node.info);
-        }
     }
 }

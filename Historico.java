@@ -1,10 +1,6 @@
 import javax.swing.JOptionPane;
-
 public class Historico{
-    public Object[] fila;
-    public Object[] nome;
-    public Object[] numeroJogada;
-    public Object[] prioridade;
+    public Object[] fila, nome, numeroJogada, prioridade;
 
     public void verHistorico() {
         int indice = 0;
