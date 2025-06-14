@@ -14,7 +14,7 @@ public class EstrFila {
      * -Efeito: o ElementoFila é inserido ao final da fila
      */
     public void inserirSimples(ElementoFila itemASerInserido) {
-        fim = fim.getProx();
+        fim.setProx(itemASerInserido);
         fim = itemASerInserido;
     }
 
@@ -79,7 +79,7 @@ public class EstrFila {
         if (!this.estaVazio()) {
             ElementoFila elemento = inicio;
 
-            while (elemento.prox != null) {
+            while (elemento.getProx() != null) {
                 tamanho++;
                 elemento = elemento.getProx();
             }
