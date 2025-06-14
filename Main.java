@@ -1,9 +1,14 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import GUI.Janela;
+
 public class Main {
     public static void main(String[] args) {
 
+        Janela janela = new Janela();
+
+        /*
         ListaDuplamenteEncadeada tabuleiro = new ListaDuplamenteEncadeada();
         for (int i = 1; i <= 15; i++) {
             tabuleiro.inserirUltimo(i);
@@ -72,6 +77,7 @@ public class Main {
                     break;
             }
         }
+        */
     }
 
     static Node turno(Scanner scan, ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
