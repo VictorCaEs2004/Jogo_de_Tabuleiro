@@ -10,6 +10,7 @@ public class Janela extends JFrame{
 
     public JPanel painelPrincipal, placeholderBottomPainel;
     public JLabel labelDoPainelPrincipal;
+    public JButton button;
     public String textoPrincipal = "Testando";
 
     public Janela(){
@@ -45,7 +46,11 @@ public class Janela extends JFrame{
         placeholderBottomPainel.setBounds(0, 433, 1600, 468);
         placeholderBottomPainel.setOpaque(false);
 
-        JButton button = new JButton();
+        button = new JButton();
+        button.addActionListener(e -> {
+            textoPrincipal = "Botão apertado";
+            labelDoPainelPrincipal.setText(textoPrincipal);
+        });
 
         placeholderBottomPainel.add(button);
         add(placeholderBottomPainel);
