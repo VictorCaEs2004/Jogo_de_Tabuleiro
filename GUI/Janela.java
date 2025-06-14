@@ -11,7 +11,11 @@ public class Janela extends JFrame{
     public JPanel painelPrincipal, placeholderBottomPainel;
     public JLabel labelDoPainelPrincipal;
     public JButton button;
-    public String textoPrincipal = "Testando";
+    public String textoPrincipal;
+    public String textoInstrucoes = "Os jogadores percorrem um tabuleiro de 15 casas. O movimento e turno"
+                                    + "\ndos jogadores é decidido por dado. Ao parar em uma casa par, devem"
+                                    + "\ncomprar uma carta e respondê-la. Dependendo da resposta, sofrerão uma"
+                                    + "\nrecompensa ou penalidade. Vence quem chegar na última casa primeiro.";
 
     public Janela(){
         this.setSize(1600,900); //define o tamanho da janela
@@ -20,6 +24,8 @@ public class Janela extends JFrame{
         this.setResizable(false); //proíbe o usuário de redimensionar a janela
         this.getContentPane().setBackground(Color.lightGray);
         this.setLayout(null);
+
+        this.textoPrincipal = stringToHtml(textoInstrucoes);
 
         preparaPainelPrincipal();
         placeholderButton();
@@ -54,5 +60,10 @@ public class Janela extends JFrame{
 
         placeholderBottomPainel.add(button);
         add(placeholderBottomPainel);
+    }
+
+    public String stringToHtml(String stringASerConvertida){
+        String nHtml = "<html>" + stringASerConvertida.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") + "</html>";
+        return nHtml;
     }
 }
