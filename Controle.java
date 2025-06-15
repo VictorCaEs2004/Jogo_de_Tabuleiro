@@ -3,10 +3,12 @@ import java.util.Scanner;
 
 public class Controle {
 
+    //PAREI NO controleTurnos e turno
     private Janela janela;
     public ListaDuplamenteEncadeada tabuleiro;
     public EstrPilha pilhaCartas;
     public Node posicaoJogador, posicaoMaquina;
+    public String textoJogo = "";
 
     public Controle(Janela entradaJanela){
         this.janela = entradaJanela;
@@ -69,21 +71,41 @@ public class Controle {
                         }
                     break;
                 case 2:
-                    System.out.println("Os jogadores percorrem um tabuleiro de 15 casas. O movimento e turno"
-                            + "\ndos jogadores é decidido por dado. Ao parar em uma casa par, devem"
-                            + "\ncomprar uma carta e respondê-la. Dependendo da resposta, sofrerão uma"
-                            + "\nrecompensa ou penalidade. Vence quem chegar na última casa primeiro.");
                     break;
                 case 3:
-                    System.out.println("Fechando jogo.");
-                    scan.close();
                     return;
                 default:
-                    System.out.println("Digite um número de 1-3.");
                     break;
             }
         }
         
+    }
+
+    public void controleTurnos(){
+        textoJogo = "";
+        textoJogo = textoJogo + "Decidindo turnos.\nDado da máquina: 4";
+        int dadoJogador = lancarDado();
+        textoJogo = textoJogo + "\nDado do jogador: " + dadoJogador;
+        boolean turnoJogador = dadoJogador > 4;
+        while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
+            if (turnoJogador) {
+                textoJogo = textoJogo + "\nTurno do jogador.";
+                //PAREI AQUI
+                posicaoJogador = turno(tabuleiro, pilhaCartas, posicaoJogador);
+                turnoJogador = false;
+                if (posicaoJogador.info == 15) {
+                    textoJogo = textoJogo + "\nJogador venceu.";
+                    break;
+                } else if (posicaoMaquina.info == 15) {
+                    textoJogo = textoJogo + "\nMáquina venceu.";
+                    break;
+                }
+            } else {
+                textoJogo = textoJogo + "\nMáquina jogará.";
+                posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
+                turnoJogador = true;
+            }
+        }
     }
 
     static Node turno(Scanner scan, ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
