@@ -1,8 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
 
-import GUI.Janela;
-
 public class Main {
     public static void main(String[] args) {
 
