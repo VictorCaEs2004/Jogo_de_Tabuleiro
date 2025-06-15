@@ -14,7 +14,7 @@ public class Janela extends JFrame{
 
     public JPanel painelPrincipal, painelDeBaixo;
     public JLabel labelDoPainelPrincipal;
-    public JButton botaoIniciarJogo, botaoResposta1, botaoResposta2, botaoResposta3, botaoResposta4, botaoResposta5, botaoResposta6, botaoResposta7;
+    public JButton botaoIniciarJogo, botaoRespostaA, botaoRespostaB, botaoRespostaC, botaoRespostaD, botaoRespostaE, botaoRespostaF, botaoRespostaG;
     //public String textoPrincipal;
     public String textoInstrucoes = "Os jogadores percorrem um tabuleiro de 15 casas. O movimento e turno"
                                     + "\ndos jogadores é decidido por dado. Ao parar em uma casa par, devem"
@@ -61,25 +61,99 @@ public class Janela extends JFrame{
         botaoIniciarJogo.setText("Iniciar partida");
         botaoIniciarJogo.setFocusable(false);
         botaoIniciarJogo.addActionListener(e -> {
-            atualizarTextoPrincipal("Botão apertado");
             botaoIniciarJogo.setVisible(false);
-            //TODO: conexão com o controle do jogo
+            controle.Controlar();
         });
 
-        botaoResposta1 = new JButton();
-        botaoResposta1.setText("A");
-        botaoResposta1.setFocusable(false);
-        botaoResposta1.addActionListener(e -> {
-            controle.parte2TurnoJogador("A");
+        botaoRespostaA = new JButton();
+        botaoRespostaA.setText("A");
+        botaoRespostaA.setFocusable(false);
+        botaoRespostaA.addActionListener(e -> {
+            responderPergunta("A");
         });
-        botaoResposta1.setVisible(false);
+        botaoRespostaA.setVisible(false);
+
+        botaoRespostaB = new JButton();
+        botaoRespostaB.setText("B");
+        botaoRespostaB.setFocusable(false);
+        botaoRespostaB.addActionListener(e -> {
+            responderPergunta("B");
+        });
+        botaoRespostaB.setVisible(false);
+
+        botaoRespostaC = new JButton();
+        botaoRespostaC.setText("C");
+        botaoRespostaC.setFocusable(false);
+        botaoRespostaC.addActionListener(e -> {
+            responderPergunta("C");
+        });
+        botaoRespostaC.setVisible(false);
+
+        botaoRespostaD = new JButton();
+        botaoRespostaD.setText("D");
+        botaoRespostaD.setFocusable(false);
+        botaoRespostaD.addActionListener(e -> {
+            responderPergunta("D");
+        });
+        botaoRespostaD.setVisible(false);
+
+        botaoRespostaE = new JButton();
+        botaoRespostaE.setText("E");
+        botaoRespostaE.setFocusable(false);
+        botaoRespostaE.addActionListener(e -> {
+            responderPergunta("E");
+        });
+        botaoRespostaE.setVisible(false);
+
+        botaoRespostaF = new JButton();
+        botaoRespostaF.setText("F");
+        botaoRespostaF.setFocusable(false);
+        botaoRespostaF.addActionListener(e -> {
+            responderPergunta("F");
+        });
+        botaoRespostaF.setVisible(false);
+
+        botaoRespostaG = new JButton();
+        botaoRespostaG.setText("G");
+        botaoRespostaG.setFocusable(false);
+        botaoRespostaG.addActionListener(e -> {
+            responderPergunta("G");
+        });
+        botaoRespostaG.setVisible(false);
 
         painelDeBaixo.add(botaoIniciarJogo);
+        painelDeBaixo.add(botaoRespostaA);
+        painelDeBaixo.add(botaoRespostaB);
+        painelDeBaixo.add(botaoRespostaC);
+        painelDeBaixo.add(botaoRespostaD);
+        painelDeBaixo.add(botaoRespostaE);
+        painelDeBaixo.add(botaoRespostaE);
+        painelDeBaixo.add(botaoRespostaF);
         add(painelDeBaixo);
     }
 
     public void responderPergunta(String resposta){
         controle.posicaoJogador = controle.parte2TurnoJogador(resposta);
+        desligarBotoesResposta();
+    }
+
+    public void ligarBotoesResposta(){
+        botaoRespostaA.setVisible(true);
+        botaoRespostaB.setVisible(true);
+        botaoRespostaC.setVisible(true);
+        botaoRespostaD.setVisible(true);
+        botaoRespostaE.setVisible(true);
+        botaoRespostaF.setVisible(true);
+        botaoRespostaG.setVisible(true);
+    }
+    public void desligarBotoesResposta(){
+        botaoRespostaA.setVisible(false);
+        botaoRespostaB.setVisible(false);
+        botaoRespostaC.setVisible(false);
+        botaoRespostaD.setVisible(false);
+        botaoRespostaE.setVisible(false);
+        botaoRespostaF.setVisible(false);
+        botaoRespostaG.setVisible(false);
     }
 
     public void atualizarTextoPrincipal(String novoTexto){

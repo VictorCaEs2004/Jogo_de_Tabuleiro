@@ -10,9 +10,7 @@ public class Controle {
     public Node posicaoJogador, posicaoMaquina, retornoNode, tempNode;
     //public String textoJogo = ""; substituido pelo string builder
     public StringBuilder stringBuilder;
-    public boolean jogoAcabou = false;
-    public boolean primeiroTurno = true;
-    public boolean turnoJogador;
+    public boolean jogoAcabou = false, turnoJogador, parte1Turno = false, parte2Turno = false, rodando = true;
     public Carta cartaComprada;
     public int resultadoDadoJogador;
 
@@ -93,6 +91,9 @@ public class Controle {
         }*/
 
         primeiroTurno();
+        while(rodando && posicaoJogador.info != 15 || posicaoMaquina.info != 15){
+            controleTurnos();
+        }
         
     }
 
@@ -101,20 +102,51 @@ public class Controle {
         int dadoJogador = lancarDado();
         stringBuilder.append("\nDado do jogador: " + dadoJogador);
         turnoJogador = dadoJogador > 4;
+        parte1Turno = true;
         updateTextoJanela();
     }
 
-    public void controleTurnos(int parteTurno, String respostaDada){
-        if(turnoJogador){
+    public void controleTurnos(){
+            /* 
             switch(parteTurno){
             case 1:
                 stringBuilder.append("\nTurno do jogador.");
+                parte1TurnoJogador(tabuleiro, pilhaCartas, posicaoJogador);
                 break;
+            }*/
+
+        if(turnoJogador){
+            if(parte1Turno){
+                stringBuilder.append("\nTurno do jogador.");
+                parte1Turno = false;
+                parte2Turno = true;
+                parte1TurnoJogador(tabuleiro, pilhaCartas, posicaoJogador);
+            }else if(parte2Turno){
+                if (tempNode.info % 2 == 0) {
+                    rodando = false;
+                    return;
+                }else{
+                    posicaoJogador = tempNode;
+                    updateTextoJanela();
+                    rodando = true;
+                }
+                turnoJogador = false;
+                if (posicaoJogador.info == 15) {
+                    stringBuilder.append("\nJogador venceu.");
+                } else if (posicaoMaquina.info == 15) {
+                    stringBuilder.append("\nMáquina venceu.");
+                }
             }
+        }else{
+            stringBuilder.append("\nMáquina jogará.");
+            posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
+            turnoJogador = true;
         }
         
         
+        
         //while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
+        /*
         if (turnoJogador) {
             stringBuilder.append("\nTurno do jogador.");
             posicaoJogador = turno(tabuleiro, pilhaCartas, posicaoJogador);
@@ -130,7 +162,7 @@ public class Controle {
             stringBuilder.append("\nMáquina jogará.");
             posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
             turnoJogador = true;
-        }
+        }*/
         //}
     }
 
@@ -203,6 +235,7 @@ public class Controle {
             retornoNode = tabuleiro.ultimo;
             updateTextoJanela();
             //parar jogo
+            return;
         }
         tabuleiro.avancar(nodeAtual.info, resultadoDadoJogador);
         nodeAtual = tabuleiro.atual;
@@ -212,11 +245,12 @@ public class Controle {
             cartaComprada = pilhaCartas.pop().getItem();
             stringBuilder.append("\nPergunta: " + cartaComprada.getPergunta());
             updateTextoJanela();
-            //ligar botoes de resposta
+            janela.ligarBotoesResposta();
         }
     }
 
     public Node parte2TurnoJogador(String respostaJogador){
+        retornoNode = tempNode;
         if(tempNode.info % 2 == 0){
             if (respostaJogador.equalsIgnoreCase(cartaComprada.getResposta())) {
                 stringBuilder.append("\nAcertou a pergunta.");
@@ -227,9 +261,14 @@ public class Controle {
                 stringBuilder.append("\nResposta era " + cartaComprada.getResposta());
                 tabuleiro.retroceder(tempNode.info, cartaComprada.getEfeito());
                 retornoNode = tempNode;
+                updateTextoJanela();
             }
+            
+            parte2Turno = false;
+            turnoJogador = false;
         }
         
+        rodando = true;
         return retornoNode;
     }
 
@@ -250,6 +289,7 @@ public class Controle {
             stringBuilder.append("\nMáquina respondeu " + carta.getResposta());
             stringBuilder.append("\nAcertou a pergunta.");
             tabuleiro.avancar(nodeAtual.info, carta.getEfeito());
+            updateTextoJanela();
         }
         return nodeAtual;
     }
