@@ -4,12 +4,87 @@ import java.util.Scanner;
 public class Controle {
 
     private Janela janela;
+    public ListaDuplamenteEncadeada tabuleiro;
+    public EstrPilha pilhaCartas;
+    public Node posicaoJogador, posicaoMaquina;
 
     public Controle(Janela entradaJanela){
         this.janela = entradaJanela;
         janela.setControle(this);
     }
     
+    public void Controlar(){
+        tabuleiro = new ListaDuplamenteEncadeada();
+        for (int i = 1; i <= 15; i++) {
+            tabuleiro.inserirUltimo(i);
+        }
+
+        pilhaCartas = new EstrPilha();
+        Carta[] cartas = {
+                new Carta("A", "A", 1),
+                new Carta("B", "B", 1),
+                new Carta("C", "C", 1),
+                new Carta("D", "D", 1),
+                new Carta("E", "E", 1),
+                new Carta("F", "F", 1),
+                new Carta("G", "G", 1),
+        };
+
+        for (Carta carta : cartas) {
+            pilhaCartas.push(new ElementoPilha(carta));
+        }
+
+        /* --------------------------------------------------------------------- */
+        Scanner scan = new Scanner(System.in);
+        posicaoJogador = tabuleiro.primeiro;
+        posicaoMaquina = tabuleiro.primeiro;
+
+        while (true) {
+            System.out.println("1. Jogar partida \n2. Explicar regras \n3. Sair");
+            int escolha = Integer.parseInt(scan.nextLine());
+            switch (escolha) {
+                case 1:
+                    System.out.println("Decidindo turnos.");
+                    System.out.println("Dado da máquina: 4");
+                    int dadoJogador = lancarDado();
+                    System.out.println("Dado do jogador: " + dadoJogador);
+                    boolean turnoJogador = dadoJogador > 4;
+                        while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
+                            if (turnoJogador) {
+                                System.out.println("Turno do jogador.");
+                                posicaoJogador = turno(scan, tabuleiro, pilhaCartas, posicaoJogador);
+                                turnoJogador = false;
+                                if (posicaoJogador.info == 15) {
+                                    System.out.println("Jogador venceu.");
+                                    break;
+                                } else if (posicaoMaquina.info == 15) {
+                                    System.out.println("Máquina venceu.");
+                                    break;
+                                }
+                            } else {
+                                System.out.println("Máquina jogará.");
+                                posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
+                                turnoJogador = true;
+                            }
+                        }
+                    break;
+                case 2:
+                    System.out.println("Os jogadores percorrem um tabuleiro de 15 casas. O movimento e turno"
+                            + "\ndos jogadores é decidido por dado. Ao parar em uma casa par, devem"
+                            + "\ncomprar uma carta e respondê-la. Dependendo da resposta, sofrerão uma"
+                            + "\nrecompensa ou penalidade. Vence quem chegar na última casa primeiro.");
+                    break;
+                case 3:
+                    System.out.println("Fechando jogo.");
+                    scan.close();
+                    return;
+                default:
+                    System.out.println("Digite um número de 1-3.");
+                    break;
+            }
+        }
+        
+    }
 
     static Node turno(Scanner scan, ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
         int dado = lancarDado();
