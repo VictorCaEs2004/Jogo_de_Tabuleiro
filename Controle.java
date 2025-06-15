@@ -7,16 +7,26 @@ public class Controle {
     private Janela janela;
     public ListaDuplamenteEncadeada tabuleiro;
     public EstrPilha pilhaCartas;
-    public Node posicaoJogador, posicaoMaquina;
-    public String textoJogo = "";
+    public Node posicaoJogador, posicaoMaquina, retornoNode, tempNode;
+    //public String textoJogo = ""; substituido pelo string builder
+    public StringBuilder stringBuilder;
+    public boolean jogoAcabou = false;
+    public boolean primeiroTurno = true;
+    public boolean turnoJogador;
+    public Carta cartaComprada;
+    public int resultadoDadoJogador;
 
     public Controle(Janela entradaJanela){
         this.janela = entradaJanela;
         janela.setControle(this);
     }
+
+    public void updateTextoJanela(){
+        janela.atualizarTextoPrincipal(stringBuilder.toString());
+    }
     
     public void Controlar(){
-        tabuleiro = new ListaDuplamenteEncadeada();
+        tabuleiro = new ListaDuplamenteEncadeada(this);
         for (int i = 1; i <= 15; i++) {
             tabuleiro.inserirUltimo(i);
         }
@@ -36,11 +46,14 @@ public class Controle {
             pilhaCartas.push(new ElementoPilha(carta));
         }
 
+        stringBuilder = new StringBuilder();
+
         /* --------------------------------------------------------------------- */
-        Scanner scan = new Scanner(System.in);
+        //Scanner scan = new Scanner(System.in);
         posicaoJogador = tabuleiro.primeiro;
         posicaoMaquina = tabuleiro.primeiro;
 
+        /*
         while (true) {
             System.out.println("1. Jogar partida \n2. Explicar regras \n3. Sair");
             int escolha = Integer.parseInt(scan.nextLine());
@@ -77,51 +90,68 @@ public class Controle {
                 default:
                     break;
             }
-        }
+        }*/
+
+        primeiroTurno();
         
     }
 
-    public void controleTurnos(){
-        textoJogo = "";
-        textoJogo = textoJogo + "Decidindo turnos.\nDado da máquina: 4";
+    public void primeiroTurno(){
+        stringBuilder.append("Decidindo turnos.\nDado da máquina: 4");
         int dadoJogador = lancarDado();
-        textoJogo = textoJogo + "\nDado do jogador: " + dadoJogador;
-        boolean turnoJogador = dadoJogador > 4;
-        while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
-            if (turnoJogador) {
-                textoJogo = textoJogo + "\nTurno do jogador.";
-                //PAREI AQUI
-                posicaoJogador = turno(tabuleiro, pilhaCartas, posicaoJogador);
-                turnoJogador = false;
-                if (posicaoJogador.info == 15) {
-                    textoJogo = textoJogo + "\nJogador venceu.";
-                    break;
-                } else if (posicaoMaquina.info == 15) {
-                    textoJogo = textoJogo + "\nMáquina venceu.";
-                    break;
-                }
-            } else {
-                textoJogo = textoJogo + "\nMáquina jogará.";
-                posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
-                turnoJogador = true;
-            }
-        }
+        stringBuilder.append("\nDado do jogador: " + dadoJogador);
+        turnoJogador = dadoJogador > 4;
+        updateTextoJanela();
     }
 
-    static Node turno(Scanner scan, ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
-        int dado = lancarDado();
-        System.out.println("Dado do jogador: " + dado);
+    public void controleTurnos(int parteTurno, String respostaDada){
+        if(turnoJogador){
+            switch(parteTurno){
+            case 1:
+                stringBuilder.append("\nTurno do jogador.");
+                break;
+            }
+        }
+        
+        
+        //while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
+        if (turnoJogador) {
+            stringBuilder.append("\nTurno do jogador.");
+            posicaoJogador = turno(tabuleiro, pilhaCartas, posicaoJogador);
+            turnoJogador = false;
+            if (posicaoJogador.info == 15) {
+                stringBuilder.append("\nJogador venceu.");
+                break;
+            } else if (posicaoMaquina.info == 15) {
+                stringBuilder.append("\nMáquina venceu.");
+                break;
+            }
+        } else {
+            stringBuilder.append("\nMáquina jogará.");
+            posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
+            turnoJogador = true;
+        }
+        //}
+    }
+
+    /*
+    private Node turno(/*Scanner scan*/ /*int parteTurnoInterior, String respostaJogador, ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
+        //int dado = lancarDado();
+        //System.out.println("Dado do jogador: " + dado);
+        /* 
         if ((nodeAtual.info + dado) > 15) {
             System.out.println("Moveu " + dado + " casa(s) para frente, parando na 15.");
             return tabuleiro.ultimo;
         }
-        tabuleiro.avancar(nodeAtual.info, dado);
-        nodeAtual = tabuleiro.atual;
+        */
+        //tabuleiro.avancar(nodeAtual.info, dado);
+        //nodeAtual = tabuleiro.atual;
+        /*
         if (nodeAtual.info % 2 == 0) {
             System.out.println("Jogador parou em uma casa par.");
             Carta carta = pilhaCartas.pop().getItem();
             System.out.println("Pergunta: " + carta.getPergunta());
-            String respostaJogador = scan.nextLine();
+            //String respostaJogador = scan.nextLine();
             if (respostaJogador.equalsIgnoreCase(carta.getResposta())) {
                 System.out.println("Acertou a pergunta.");
                 tabuleiro.avancar(nodeAtual.info, carta.getEfeito());
@@ -130,25 +160,95 @@ public class Controle {
                 System.out.println("Resposta era " + carta.getResposta());
                 tabuleiro.retroceder(nodeAtual.info, carta.getEfeito());
             }
+        }*/
+        //return nodeAtual;
+
+        //--------------------------------------------------------------------------------------
+        /*
+        switch(parteTurnoInterior){
+            case 1:
+                int dado = lancarDado();
+                stringBuilder.append("\nDado do jogador: " + dado);
+                if ((nodeAtual.info + dado) > 15) {
+                    stringBuilder.append("\nMoveu " + dado + " casa(s) para frente, parando na 15.");
+                    return tabuleiro.ultimo;
+                }
+                tabuleiro.avancar(nodeAtual.info, dado);
+                nodeAtual = tabuleiro.atual;
+                if (nodeAtual.info % 2 == 0) {
+                    stringBuilder.append("\nJogador parou em uma casa par.");
+                    cartaComprada = pilhaCartas.pop().getItem();
+                    stringBuilder.append("\nPergunta: " + cartaComprada.getPergunta());
+                }
+                return nodeAtual;
+            case 2:
+                if (respostaJogador.equalsIgnoreCase(cartaComprada.getResposta())) {
+                    System.out.println("Acertou a pergunta.");
+                    tabuleiro.avancar(nodeAtual.info, cartaComprada.getEfeito());
+                } else {
+                    System.out.println("Errou a pergunta.");
+                    System.out.println("Resposta era " + cartaComprada.getResposta());
+                    tabuleiro.retroceder(nodeAtual.info, cartaComprada.getEfeito());
+                }
+                return nodeAtual;
         }
-        return nodeAtual;
+        
+    }*/
+
+    public void parte1TurnoJogador(ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual){
+        resultadoDadoJogador = lancarDado();
+        stringBuilder.append("\nDado do jogador: " + resultadoDadoJogador);
+        if ((nodeAtual.info + resultadoDadoJogador) > 15) {
+            stringBuilder.append("\nMoveu " + resultadoDadoJogador + " casa(s) para frente, parando na 15.");
+            retornoNode = tabuleiro.ultimo;
+            updateTextoJanela();
+            //parar jogo
+        }
+        tabuleiro.avancar(nodeAtual.info, resultadoDadoJogador);
+        nodeAtual = tabuleiro.atual;
+        tempNode = nodeAtual;
+        if (nodeAtual.info % 2 == 0) {
+            stringBuilder.append("\nJogador parou em uma casa par.");
+            cartaComprada = pilhaCartas.pop().getItem();
+            stringBuilder.append("\nPergunta: " + cartaComprada.getPergunta());
+            updateTextoJanela();
+            //ligar botoes de resposta
+        }
     }
 
-    static Node turnoMaquina(ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
+    public Node parte2TurnoJogador(String respostaJogador){
+        if(tempNode.info % 2 == 0){
+            if (respostaJogador.equalsIgnoreCase(cartaComprada.getResposta())) {
+                stringBuilder.append("\nAcertou a pergunta.");
+                tabuleiro.avancar(tempNode.info, cartaComprada.getEfeito());
+                retornoNode = tempNode;
+            } else {
+                stringBuilder.append("\nErrou a pergunta.");
+                stringBuilder.append("\nResposta era " + cartaComprada.getResposta());
+                tabuleiro.retroceder(tempNode.info, cartaComprada.getEfeito());
+                retornoNode = tempNode;
+            }
+        }
+        
+        return retornoNode;
+    }
+
+    public Node turnoMaquina(ListaDuplamenteEncadeada tabuleiro, EstrPilha pilhaCartas, Node nodeAtual) {
         int dado = lancarDado();
-        System.out.println("Dado da máquina: " + dado);
+        stringBuilder.append("\nDado da máquina: " + dado);
         if ((nodeAtual.info + dado) > 15) {
-            System.out.println("Máquina moveu " + dado + " casa(s) para frente, parando na 15.");
+            stringBuilder.append("\nMáquina moveu " + dado + " casa(s) para frente, parando na 15.");
+            updateTextoJanela();
             return tabuleiro.ultimo;
         }
         tabuleiro.avancar(nodeAtual.info, dado);
         nodeAtual = tabuleiro.atual;
         if (nodeAtual.info % 2 == 0) {
-            System.out.println("Máquina parou em uma casa par.");
+            stringBuilder.append("\nMáquina parou em uma casa par.");
             Carta carta = pilhaCartas.pop().getItem();
-            System.out.println("Pergunta: " + carta.getPergunta());
-            System.out.println("Máquina respondeu " + carta.getResposta());
-            System.out.println("Acertou a pergunta.");
+            stringBuilder.append("\nPergunta: " + carta.getPergunta());
+            stringBuilder.append("\nMáquina respondeu " + carta.getResposta());
+            stringBuilder.append("\nAcertou a pergunta.");
             tabuleiro.avancar(nodeAtual.info, carta.getEfeito());
         }
         return nodeAtual;

@@ -6,6 +6,10 @@ public class Main {
 
         Janela janela = new Janela();
 
+        Controle controle = new Controle(janela);
+
+        //aqui: criar Controle
+
         /*
         ListaDuplamenteEncadeada tabuleiro = new ListaDuplamenteEncadeada();
         for (int i = 1; i <= 15; i++) {

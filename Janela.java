@@ -14,7 +14,7 @@ public class Janela extends JFrame{
 
     public JPanel painelPrincipal, painelDeBaixo;
     public JLabel labelDoPainelPrincipal;
-    public JButton botaoIniciarJogo;
+    public JButton botaoIniciarJogo, botaoResposta1, botaoResposta2, botaoResposta3, botaoResposta4, botaoResposta5, botaoResposta6, botaoResposta7;
     //public String textoPrincipal;
     public String textoInstrucoes = "Os jogadores percorrem um tabuleiro de 15 casas. O movimento e turno"
                                     + "\ndos jogadores é decidido por dado. Ao parar em uma casa par, devem"
@@ -66,8 +66,20 @@ public class Janela extends JFrame{
             //TODO: conexão com o controle do jogo
         });
 
+        botaoResposta1 = new JButton();
+        botaoResposta1.setText("A");
+        botaoResposta1.setFocusable(false);
+        botaoResposta1.addActionListener(e -> {
+            controle.parte2TurnoJogador("A");
+        });
+        botaoResposta1.setVisible(false);
+
         painelDeBaixo.add(botaoIniciarJogo);
         add(painelDeBaixo);
+    }
+
+    public void responderPergunta(String resposta){
+        controle.posicaoJogador = controle.parte2TurnoJogador(resposta);
     }
 
     public void atualizarTextoPrincipal(String novoTexto){
