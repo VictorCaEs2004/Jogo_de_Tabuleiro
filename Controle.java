@@ -91,7 +91,7 @@ public class Controle {
         }*/
 
         primeiroTurno();
-        while(rodando && posicaoJogador.info != 15 || posicaoMaquina.info != 15){
+        while(rodando && (posicaoJogador.info != 15 || posicaoMaquina.info != 15)){
             controleTurnos();
         }
         
@@ -136,11 +136,14 @@ public class Controle {
                 } else if (posicaoMaquina.info == 15) {
                     stringBuilder.append("\nMáquina venceu.");
                 }
+                parte2Turno = false;
             }
         }else{
             stringBuilder.append("\nMáquina jogará.");
             posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
             turnoJogador = true;
+            parte1Turno = true;
+            parte2Turno = false;
         }
         
         
@@ -291,6 +294,7 @@ public class Controle {
             tabuleiro.avancar(nodeAtual.info, carta.getEfeito());
             updateTextoJanela();
         }
+        updateTextoJanela();
         return nodeAtual;
     }
 

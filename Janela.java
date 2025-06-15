@@ -22,7 +22,7 @@ public class Janela extends JFrame{
                                     + "\nrecompensa ou penalidade. Vence quem chegar na última casa primeiro.";
 
     public Janela(){
-        this.setSize(1600,900); //define o tamanho da janela
+        this.setSize(800,1000); //define o tamanho da janela
         this.setTitle("A3 Pseudo-Tabuleiro"); //define o título da janela
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //faz com que o programa pare quando a janela é fechada (EXIT termina todas as janelas, DISPOSE termina só a que foi fechada)
         this.setResizable(false); //proíbe o usuário de redimensionar a janela
@@ -41,7 +41,7 @@ public class Janela extends JFrame{
     public void preparaPainelPrincipal(){
         //JPanel: componente que funciona como container, possuindo outros componentes
         painelPrincipal = new JPanel();
-        painelPrincipal.setBounds(0, 0, 1600, 400);
+        painelPrincipal.setBounds(0, 0, 800, 800);
         painelPrincipal.setOpaque(false);
 
         labelDoPainelPrincipal = new JLabel();
@@ -54,7 +54,7 @@ public class Janela extends JFrame{
 
     public void configurarBotoes(){
         painelDeBaixo = new JPanel();
-        painelDeBaixo.setBounds(0, 433, 1600, 468);
+        painelDeBaixo.setBounds(0, 833, 800, 168);
         painelDeBaixo.setOpaque(false);
 
         botaoIniciarJogo = new JButton();
@@ -127,8 +127,8 @@ public class Janela extends JFrame{
         painelDeBaixo.add(botaoRespostaC);
         painelDeBaixo.add(botaoRespostaD);
         painelDeBaixo.add(botaoRespostaE);
-        painelDeBaixo.add(botaoRespostaE);
         painelDeBaixo.add(botaoRespostaF);
+        painelDeBaixo.add(botaoRespostaG);
         add(painelDeBaixo);
     }
 

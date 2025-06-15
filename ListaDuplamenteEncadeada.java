@@ -52,7 +52,7 @@ public class ListaDuplamenteEncadeada {
         for (int i = 0; i < valor; i++) {
             atual = atual.prox;
         }
-        controle.stringBuilder.append("Moveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
+        controle.stringBuilder.append("\nMoveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
         //System.out.println("Moveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
     }
 
@@ -75,6 +75,6 @@ public class ListaDuplamenteEncadeada {
             atual = atual.prev;
         }
         //System.out.println("Moveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
-        controle.stringBuilder.append("Moveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
+        controle.stringBuilder.append("\nMoveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
     }
 }
