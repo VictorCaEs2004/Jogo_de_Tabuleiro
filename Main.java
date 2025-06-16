@@ -39,17 +39,21 @@ public class Main {
                     System.out.println("Dado da máquina: 4");
                     int dadoJogador = lancarDado();
                     System.out.println("Dado do jogador: " + dadoJogador);
-                    boolean turnoJogador = dadoJogador > 4;
+                    if (dadoJogador > 4){
+                        filaTurnos.inserirSimples(new ElementoFila("jogador"));
+                    }else{
+                        filaTurnos.inserirSimples(new ElementoFila("maquina"));
+                    }
                         while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
-                            if (turnoJogador) {
+                            if (filaTurnos.pop().getItem().equalsIgnoreCase("jogador")) {
                                 System.out.println("\n-----\n\nTurno do jogador.");
                                 posicaoJogador = turno(scan, tabuleiro, pilhaCartas, posicaoJogador);
-                                turnoJogador = false;
-                                
+                                //turnoJogador = false;
+                                filaTurnos.inserirSimples(new ElementoFila("maquina"));
                             } else {
                                 System.out.println("\n-----\n\nMáquina jogará.");
                                 posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
-                                turnoJogador = true;
+                                filaTurnos.inserirSimples(new ElementoFila("jogador"));
                             }
                             if (posicaoJogador.info == 15) {
                                 System.out.println("\nJogador venceu.");

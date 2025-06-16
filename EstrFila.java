@@ -14,12 +14,12 @@ public class EstrFila {
      * -Efeito: o ElementoFila é inserido ao final da fila
      */
     public void inserirSimples(ElementoFila itemASerInserido) {
-        if(fim != null){
+        if(this.inicio == null){
+            inicio = fim = itemASerInserido;
+        }else{
             fim.setProx(itemASerInserido);
-        } else {
-            inicio = itemASerInserido;
+            fim = itemASerInserido;
         }
-        fim = itemASerInserido;
     }
 
     /*
@@ -30,7 +30,11 @@ public class EstrFila {
      */
     public ElementoFila pop() {
         ElementoFila saindo = inicio;
-        inicio = inicio.getProx();
+        if(inicio.getProx() == null){
+            inicio = null;
+        }else {
+            inicio = inicio.getProx();
+        }
         return saindo;
     }
 
