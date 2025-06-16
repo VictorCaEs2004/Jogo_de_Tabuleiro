@@ -28,13 +28,13 @@ public class Controle {
 
         pilhaCartas = new EstrPilha();
         Carta[] cartas = {
-                new Carta("A", "A", 1),
-                new Carta("B", "B", 1),
-                new Carta("C", "C", 1),
-                new Carta("D", "D", 1),
-                new Carta("E", "E", 1),
-                new Carta("F", "F", 1),
-                new Carta("G", "G", 1),
+                new Carta("\n2¹⁰ + 818?", "1842", 1),
+                new Carta("\nQual o Ano da primeira comunicação por cabos de telégrafo transatlânticos bem-sucedida?", "1858", 1),
+                new Carta("\nQual o número atômico do Livermório?", "116", 1),
+                new Carta("\nContando de Help! (1965) a Let It Be (1970), quantos álbums a banda The Beatles lançou no Reino Unido?", "8", 1),
+                new Carta("\nQual a capital da Noruega?", "Oslo", 1),
+                new Carta("\nPara qual instituição de ensino este trabalho foi (discutivelmente) feito?", "UniSul", 1),
+                new Carta("\nTodos são __________.", "bem-vindos", 1),
         };
 
         for (Carta carta : cartas) {
