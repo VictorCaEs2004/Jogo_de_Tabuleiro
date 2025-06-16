@@ -1,15 +1,23 @@
 public class ElementoFila {
 
-    public Object item;
+    public String item;
     private ElementoFila prox;
 
-    public ElementoFila(Object item){
+    public ElementoFila(String item){
         this.item = item;
         this.prox = null;
     }
 
+    public String getItem() {
+        return item;
+    }
+
     public ElementoFila getProx(){
-        return prox;
+        if(prox == null){
+            return null;
+        }else{
+            return prox;
+        }
     }
 
     public void setProx(ElementoFila prox){
