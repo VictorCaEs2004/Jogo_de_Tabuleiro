@@ -29,7 +29,7 @@ public class Main {
         Node posicaoMaquina = tabuleiro.primeiro;
 
         while (true) {
-            System.out.println("1. Jogar partida \n2. Explicar regras \n3. Sair");
+            System.out.println("\n1. Jogar partida \n2. Explicar regras \n3. Sair");
             int escolha = Integer.parseInt(scan.nextLine());
             switch (escolha) {
                 case 1:
