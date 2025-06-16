@@ -1,10 +1,8 @@
 public class ListaDuplamenteEncadeada {
     public Node primeiro, ultimo, atual;
-    public Controle controle;
 
-    public ListaDuplamenteEncadeada(Controle controle) {
+    public ListaDuplamenteEncadeada() {
         this.primeiro = this.ultimo = this.atual = null;
-        this.controle = controle;
     }
 
     /*
@@ -52,8 +50,7 @@ public class ListaDuplamenteEncadeada {
         for (int i = 0; i < valor; i++) {
             atual = atual.prox;
         }
-        controle.stringBuilder.append("\nMoveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
-        //System.out.println("Moveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
+        System.out.println("Moveu " + valor + " casa(s) para frente, parando na " + atual.info + ".");
     }
 
     /*
@@ -74,7 +71,6 @@ public class ListaDuplamenteEncadeada {
         for (int i = 0; i < valor; i++) {
             atual = atual.prev;
         }
-        //System.out.println("Moveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
-        controle.stringBuilder.append("\nMoveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
+        System.out.println("Moveu " + valor + " casa(s) para trás, parando na " + atual.info + ".");
     }
 }
