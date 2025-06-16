@@ -11,13 +11,13 @@ public class Main {
 
         EstrPilha pilhaCartas = new EstrPilha();
         Carta[] cartas = {
-                new Carta("A", "A", 1),
-                new Carta("B", "B", 1),
-                new Carta("C", "C", 1),
-                new Carta("D", "D", 1),
-                new Carta("E", "E", 1),
-                new Carta("F", "F", 1),
-                new Carta("G", "G", 1),
+                new Carta("\n2¹⁰ + 818?", "1842", 1),
+                new Carta("\nQual o ano da primeira comunicação por cabos de telégrafo transatlânticos bem-sucedida?", "1858", 1),
+                new Carta("\nQual o número atômico do Livermório?", "116", 1),
+                new Carta("\nContando de Help! (1965) a Let It Be (1970), quantos álbums a banda The Beatles lançou no Reino Unido?", "8", 1),
+                new Carta("\nQual a capital da Noruega?", "Oslo", 1),
+                new Carta("\nPara qual instituição de ensino este trabalho foi (discutivelmente) feito?", "UniSul", 1),
+                new Carta("\nTodos são bem-______.", "vindos", 1),
         };
 
         for (Carta carta : cartas) {
@@ -40,20 +40,21 @@ public class Main {
                     boolean turnoJogador = dadoJogador > 4;
                         while (posicaoJogador.info != 15 || posicaoMaquina.info != 15) {
                             if (turnoJogador) {
-                                System.out.println("Turno do jogador.");
+                                System.out.println("\n-----\n\nTurno do jogador.");
                                 posicaoJogador = turno(scan, tabuleiro, pilhaCartas, posicaoJogador);
                                 turnoJogador = false;
-                                if (posicaoJogador.info == 15) {
-                                    System.out.println("Jogador venceu.");
-                                    break;
-                                } else if (posicaoMaquina.info == 15) {
-                                    System.out.println("Máquina venceu.");
-                                    break;
-                                }
+                                
                             } else {
-                                System.out.println("Máquina jogará.");
+                                System.out.println("\n-----\n\nMáquina jogará.");
                                 posicaoMaquina = turnoMaquina(tabuleiro, pilhaCartas, posicaoMaquina);
                                 turnoJogador = true;
+                            }
+                            if (posicaoJogador.info == 15) {
+                                System.out.println("\nJogador venceu.");
+                                break;
+                            } else if (posicaoMaquina.info == 15) {
+                                System.out.println("\nMáquina venceu.");
+                                break;
                             }
                         }
                     break;
