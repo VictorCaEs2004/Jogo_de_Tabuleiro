@@ -114,6 +114,17 @@ public class Controle {
                 parte1TurnoJogador(tabuleiro, pilhaCartas, posicaoJogador);
                 break;
             }*/
+        if (posicaoJogador.info == 15) {
+            stringBuilder.append("\nJogador venceu.");
+            updateTextoJanela();
+            rodando = false;
+            return;
+        } else if (posicaoMaquina.info == 15) {
+            stringBuilder.append("\nMáquina venceu.");
+            updateTextoJanela();
+            rodando = false;
+            return;
+        }
 
         if(turnoJogador){
             if(parte1Turno){
@@ -128,14 +139,10 @@ public class Controle {
                 }else{
                     posicaoJogador = tempNode;
                     updateTextoJanela();
-                    rodando = true;
+                    //rodando = true;
                 }
                 turnoJogador = false;
-                if (posicaoJogador.info == 15) {
-                    stringBuilder.append("\nJogador venceu.");
-                } else if (posicaoMaquina.info == 15) {
-                    stringBuilder.append("\nMáquina venceu.");
-                }
+                
                 parte2Turno = false;
             }
         }else{
@@ -267,11 +274,11 @@ public class Controle {
                 updateTextoJanela();
             }
             
-            parte2Turno = false;
-            turnoJogador = false;
         }
-        
+        parte2Turno = false;
+        turnoJogador = false;
         rodando = true;
+
         return retornoNode;
     }
 
