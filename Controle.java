@@ -106,6 +106,12 @@ public class Controle {
         updateTextoJanela();
     }
 
+    public void continuaAposJogador(){
+        while(rodando && (posicaoJogador.info != 15 || posicaoMaquina.info != 15)){
+            controleTurnos();
+        }
+    }
+
     public void controleTurnos(){
             /* 
             switch(parteTurno){
@@ -135,7 +141,7 @@ public class Controle {
             }else if(parte2Turno){
                 if (tempNode.info % 2 == 0) {
                     rodando = false;
-                    return;
+                    //return;
                 }else{
                     posicaoJogador = tempNode;
                     updateTextoJanela();
@@ -266,6 +272,7 @@ public class Controle {
                 stringBuilder.append("\nAcertou a pergunta.");
                 tabuleiro.avancar(tempNode.info, cartaComprada.getEfeito());
                 retornoNode = tempNode;
+                updateTextoJanela();
             } else {
                 stringBuilder.append("\nErrou a pergunta.");
                 stringBuilder.append("\nResposta era " + cartaComprada.getResposta());

@@ -135,6 +135,7 @@ public class Janela extends JFrame{
     public void responderPergunta(String resposta){
         controle.posicaoJogador = controle.parte2TurnoJogador(resposta);
         desligarBotoesResposta();
+        controle.continuaAposJogador();
     }
 
     public void ligarBotoesResposta(){
