@@ -9,6 +9,8 @@ public class Main {
             tabuleiro.inserirUltimo(i);
         }
 
+        EstrFila filaTurnos = new EstrFila();
+
         EstrPilha pilhaCartas = new EstrPilha();
         Carta[] cartas = {
                 new Carta("\n2¹⁰ + 818?", "1842", 1),
